@@ -9,20 +9,24 @@
 using namespace std;
 
 int main(){
+    srand(time(0));
     deque<Car> toll_booth;
     Car temp_car_obj;
 
-    // start off with 5 cars in line:
-    for (int i = 0; i < 5; i++){
+    // start off with 2 cars in line:
+    for (int i = 0; i < 2; i++){
         temp_car_obj = Car();
         toll_booth.push_back(temp_car_obj);
     }
 
     // NOTE: Trying to figure out how to output the deque
-    for (int i = 0; i < 5; i++){
-        Car temp_car = toll_booth[i];
-        cout << "This is element " << i << ":" << temp_car.print() << endl;
-
-    }
+    // NOTE: When printing out loop: "toll_booth[i].print();" works
+    int i = 0;
+    // for (auto element : toll_booth){
+    //     Car temp_car = toll_booth[i];
+    //     toll_booth[i].print();
+    //     cout << endl;
+    //     i++;
+    // }
     return 0;
 }
