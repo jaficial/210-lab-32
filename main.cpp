@@ -9,10 +9,14 @@
 using namespace std;
 void deque_print(deque<Car> );
 
+const int INITIAL_QUEUE = 2;
+const int MIN = 1;
+const int MAX = 100;
+
 // random_probability function returns a random probability between 1 and 100
 int random_probability(){
     int random_prob;
-    random_prob = (rand() % 100) + 1;
+    random_prob = (rand() % MAX) + MIN;
     return random_prob;
 }
 
@@ -41,7 +45,7 @@ int main(){
     Car temp_car_paid;
 
     // start off with 2 cars in line:
-    for (int i = 0; i < 2; i++){
+    for (int i = 0; i < INITIAL_QUEUE; i++){
         temp_car_obj = Car();
         toll_booth.push_back(temp_car_obj);
     }
