@@ -63,7 +63,7 @@ int main(){
         
         if (probability <= 45){ // another car will join the line for the toll booth
             temp_car_obj = Car();
-            cout << "Time: " << time_op << " Operation: Joined lane:";
+            cout << "Time: " << time_op << " Operation: Joined lane: ";
             temp_car_obj.print();
             toll_booth.push_back(temp_car_obj);
             time_op++;
