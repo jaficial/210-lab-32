@@ -51,7 +51,7 @@ int random_probability(){
 void deque_print(deque<Car> toll_array[4]){
     int queue_iter = 0;
     for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){
-        cout << "Lane " << lane_iter + 1 << ":" << endl;
+        cout << "Lane " << lane_iter + 1 << " Queue:" << endl;
         for (auto element : toll_array[lane_iter]){
             if (toll_array[lane_iter].empty()){
                 cout << "empty" << endl;
@@ -117,35 +117,20 @@ int main(){
     deque_print(toll_array);
     
     int plaza_lane_checker = plaza_empty(toll_array); // NOTE: if any of the lanes have a car in it, this will return 0
-
-    
     for (int time_iter = 0; time_iter < MAX_TIME_PERIOD; time_iter++){
+        for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){
+            int probability = random_probability();
+            int operation = probable_operation(probability);
 
+            if (operation == 1){ // Car is getting switched 
+                switch_lanes(toll_array, lane_iter);
+            }
+
+            if (operation == 2){ // A new car is joining the queue
+                Car temp_car = Car();
+            }
+        }
     }
-    return 0; // breaking here to test out output
-    // int time_op = 1;
-    // // run simulation until all cars have left the toll booth 
-    // while(!toll_booth.empty()){
-    //     int probability = random_probability();
-        
-    //     if (probability <= 45){ // if probability is less than or equal to 45, a car joins the deque and is pushed to the back of the deque
-    //         temp_car_obj = Car();
-    //         cout << "Time: " << time_op << " Operation: Joined lane: ";
-    //         temp_car_obj.print();
-    //         toll_booth.push_back(temp_car_obj);
-    //         time_op++;
-    //         deque_print(toll_booth);
-    //     }
-
-    //     else if (probability > 45) { // if probability is greater than 45%, car at the front of the deque "pays" and front element is popped
-    //         temp_car_paid = toll_booth.front();
-    //         cout << "Time: " << time_op << " Operation: Car Paid: ";
-    //         temp_car_paid.print();
-    //         toll_booth.pop_front();
-    //         deque_print(toll_booth);
-    //         time_op++;
-    //     }
-
-    // }
-    // return 0;
+    return 0; 
+  
 }
