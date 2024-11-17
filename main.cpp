@@ -51,7 +51,7 @@ void deque_print(deque<Car> toll_booth){
             */
 int main(){
     srand(time(0));
-    deque<Car> toll_booth;
+    // deque<Car> toll_booth;
     deque<Car> toll_array[PLAZA_LANES];
     Car temp_car_obj;
     Car temp_car_paid;
@@ -63,12 +63,9 @@ int main(){
             toll_array[i].push_back(temp_car_obj); // pushes a Car object into the toll lane for each lane
         }
     }
-
-    // NOTE: When printing out deque: "toll_booth[i].print();" works
     
     int queue_iter = 0;
     cout << "Initial queue:" << endl;
-
     for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){ // NOTE: toll_array[i] is the deque, so toll_array[0] is the first deque
         cout << "Lane " << lane_iter << ":" << endl;
         for (auto element : toll_array[lane_iter]){
@@ -76,32 +73,34 @@ int main(){
             toll_array[lane_iter][queue_iter].print();
             queue_iter++;
         }
+        queue_iter = 0; 
     }
 
+    
     return 0; // breaking here to test out output
-    int time_op = 1;
-    // run simulation until all cars have left the toll booth 
-    while(!toll_booth.empty()){
-        int probability = random_probability();
+    // int time_op = 1;
+    // // run simulation until all cars have left the toll booth 
+    // while(!toll_booth.empty()){
+    //     int probability = random_probability();
         
-        if (probability <= 45){ // if probability is less than or equal to 45, a car joins the deque and is pushed to the back of the deque
-            temp_car_obj = Car();
-            cout << "Time: " << time_op << " Operation: Joined lane: ";
-            temp_car_obj.print();
-            toll_booth.push_back(temp_car_obj);
-            time_op++;
-            deque_print(toll_booth);
-        }
+    //     if (probability <= 45){ // if probability is less than or equal to 45, a car joins the deque and is pushed to the back of the deque
+    //         temp_car_obj = Car();
+    //         cout << "Time: " << time_op << " Operation: Joined lane: ";
+    //         temp_car_obj.print();
+    //         toll_booth.push_back(temp_car_obj);
+    //         time_op++;
+    //         deque_print(toll_booth);
+    //     }
 
-        else if (probability > 45) { // if probability is greater than 45%, car at the front of the deque "pays" and front element is popped
-            temp_car_paid = toll_booth.front();
-            cout << "Time: " << time_op << " Operation: Car Paid: ";
-            temp_car_paid.print();
-            toll_booth.pop_front();
-            deque_print(toll_booth);
-            time_op++;
-        }
+    //     else if (probability > 45) { // if probability is greater than 45%, car at the front of the deque "pays" and front element is popped
+    //         temp_car_paid = toll_booth.front();
+    //         cout << "Time: " << time_op << " Operation: Car Paid: ";
+    //         temp_car_paid.print();
+    //         toll_booth.pop_front();
+    //         deque_print(toll_booth);
+    //         time_op++;
+    //     }
 
-    }
-    return 0;
+    // }
+    // return 0;
 }
