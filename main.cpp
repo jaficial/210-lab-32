@@ -12,9 +12,8 @@ void deque_print(deque<Car> );
 const int INITIAL_QUEUE = 2;
 const int MIN = 1;
 const int MAX = 100;
-const int PAY_Q = 46;
-const int JOIN_Q = 39;
-const int REAR_SWITCHES = 15;
+const int SWITCH_Q = 15;
+const int JOIN_Q = SWITCH_Q + 39;
 
 // random_probability function returns a random probability between 1 and 100
 int random_probability(){
@@ -49,6 +48,7 @@ void deque_print(deque<Car> toll_booth){
 int main(){
     srand(time(0));
     deque<Car> toll_booth;
+    
     Car temp_car_obj;
     Car temp_car_paid;
 
