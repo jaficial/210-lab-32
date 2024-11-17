@@ -8,7 +8,7 @@
 
 using namespace std;
 void deque_print(deque<Car> array[4]);
-void switch_lanes(deque<Car> array[4]);
+void switch_lanes(deque<Car> array[4], int);
 int plaza_empty(deque<Car> array[4]);
 int probable_operation(int);
 
@@ -65,9 +65,17 @@ void deque_print(deque<Car> toll_array[4]){
     }
 }
 
-void switch_lanes(deque<Car> toll_array[4]){
-    toll_array[1].pop_back();
+// switch_lanes function will pop the Car object at the tail of the original lane, and push it to the back of a random new lane
+void switch_lanes(deque<Car> toll_array[4], int original_lane){
+    int random_lane = original_lane;
+    while(random_lane == original_lane){
+        random_lane = rand() % PLAZA_LANES;
+    }
+    Car temp_car = toll_array[original_lane].back();
+    toll_array[original_lane].pop_back();
+    toll_array[random_lane].push_back(temp_car);
 }
+
 // probable_operation will return a number betwwen 1, 2, 3 based on the inputted number in the probability parameter
 int probable_operation(int probability){
     if (probability <= SWITCH_Q){
@@ -109,9 +117,8 @@ int main(){
     deque_print(toll_array);
     
     int plaza_lane_checker = plaza_empty(toll_array); // NOTE: if any of the lanes have a car in it, this will return 0
-    switch_lanes(toll_array);
-    cout << "The car at the tail end of the 2nd lane should be popped. " << endl;
-    deque_print(toll_array);
+
+    
     for (int time_iter = 0; time_iter < MAX_TIME_PERIOD; time_iter++){
 
     }
