@@ -16,25 +16,26 @@ const int MIN = 1;
 const int MAX = 100;
 const int SWITCH_Q = 15;
 const int JOIN_Q = SWITCH_Q + 39;
+const int TIME_PERIOD = 25;
 
 // plaza_empty returns 1 if any of the deques are not empty, else if all are empty, it returns 0
 int plaza_empty(deque<Car> toll_array[4]){
     if (!toll_array[0].empty()){
-        return 1;
+        return 0;
     }
     
     if (!toll_array[1].empty()){
-        return 1;
+        return 0;
     }
 
     if (!toll_array[2].empty()){
-        return 1;
+        return 0;
     }
 
     if (!toll_array[3].empty()){
-        return 1;
+        return 0;
     }
-    return 0;
+    return 1;
 }
 
 // random_probability function returns a random probability between 1 and 100
@@ -48,10 +49,11 @@ int random_probability(){
 void deque_print(deque<Car> toll_array[4]){
     int queue_iter = 0;
     for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){
+        cout << "Lane " << lane_iter + 1 << ":" << endl;
         for (auto element : toll_array[lane_iter]){
             if (toll_array[lane_iter].empty()){
                 cout << "empty" << endl;
-                break;
+                continue;
             }
             cout << setw(4) << "";
             toll_array[lane_iter][queue_iter].print();
@@ -76,7 +78,7 @@ int main(){
     deque<Car> toll_array[PLAZA_LANES];
     Car temp_car_obj;
     Car temp_car_paid;
-
+    
     // start off with 2 cars in line for each queue:
     for (int i = 0; i < PLAZA_LANES; i++){
         for (int j = 0; j < INITIAL_QUEUE; j++){
@@ -87,23 +89,10 @@ int main(){
     
     int queue_iter = 0;
     cout << "Initial queue:" << endl;
-    for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){ // NOTE: toll_array[i] is the deque, so toll_array[0] is the first deque
-        cout << "Lane " << lane_iter + 1 << ":" << endl;
-        for (auto element : toll_array[lane_iter]){
-            cout << setw(4) << "";
-            toll_array[lane_iter][queue_iter].print();
-            queue_iter++;
-        }
-        queue_iter = 0; 
-    }
-
-    int time_period = 1;
-
-    int plaza_lane_checker = 1;
-    while (!plaza_lane_checker){
-        
-        plaza_lane_checker = plaza_empty(toll_array);
-    } 
+    deque_print(toll_array);
+    
+    int plaza_lane_checker = plaza_empty(toll_array); // NOTE: if any of the lanes have a car in it, this will return 0
+    
     
     return 0; // breaking here to test out output
     // int time_op = 1;
