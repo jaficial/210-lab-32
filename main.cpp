@@ -1,4 +1,4 @@
-// COMSC-210 | Jed Aficial | Lab 32
+// COMSC-210 | Jed Aficial | Lab 33
 // github link: https://github.com/jaficial/210-lab-32.git
 
 #include <iostream>
@@ -12,6 +12,9 @@ void deque_print(deque<Car> );
 const int INITIAL_QUEUE = 2;
 const int MIN = 1;
 const int MAX = 100;
+const int PAY_Q = 46;
+const int JOIN_Q = 39;
+const int REAR_SWITCHES = 15;
 
 // random_probability function returns a random probability between 1 and 100
 int random_probability(){
@@ -38,6 +41,11 @@ void deque_print(deque<Car> toll_booth){
     cout << endl;
 }
 
+/*  NOTE: - need to add an additional 3 lanes for cars to queue at
+          - 3 possible outcomes, different probabilities for each outcome
+            - 46% the car at the head of the queue pays the toll and leaves
+            - 39% the car joins the queue
+            - 15% the car at the end of the queue will switch lanes*/
 int main(){
     srand(time(0));
     deque<Car> toll_booth;
