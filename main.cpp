@@ -56,7 +56,7 @@ int main(){
     Car temp_car_obj;
     Car temp_car_paid;
 
-    // start off with 2 cars in line each line:
+    // start off with 2 cars in line for each queue:
     for (int i = 0; i < PLAZA_LANES; i++){
         for (int j = 0; j < INITIAL_QUEUE; j++){
             temp_car_obj = Car();
@@ -76,7 +76,7 @@ int main(){
     }
 
     int time_op = 1;
-    // run simulation until all cars have left the toll booth
+    // run simulation until all cars have left the toll booth 
     while(!toll_booth.empty()){
         int probability = random_probability();
         
