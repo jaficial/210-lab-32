@@ -61,20 +61,24 @@ int main(){
         for (int j = 0; j < INITIAL_QUEUE; j++){
             temp_car_obj = Car();
             toll_array[i].push_back(temp_car_obj); // pushes a Car object into the toll lane for each lane
-            
         }
     }
 
     // NOTE: When printing out deque: "toll_booth[i].print();" works
-    int i = 0;
+    
+    int queue_iter = 0;
     cout << "Initial queue:" << endl;
-    for (auto element : toll_booth){
-        Car temp_car = toll_booth[i];
-        cout << setw(4) << "";
-        toll_booth[i].print();
-        i++;
+
+    for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){ // NOTE: toll_array[i] is the deque, so toll_array[0] is the first deque
+        cout << "Lane " << lane_iter << ":" << endl;
+        for (auto element : toll_array[lane_iter]){
+            cout << setw(4) << "";
+            toll_array[lane_iter][queue_iter].print();
+            queue_iter++;
+        }
     }
 
+    return 0; // breaking here to test out output
     int time_op = 1;
     // run simulation until all cars have left the toll booth 
     while(!toll_booth.empty()){
