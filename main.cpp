@@ -7,7 +7,7 @@
 #include "Car-1.h"
 
 using namespace std;
-void deque_print(deque<Car> );
+void deque_print(deque<Car> array[4]);
 int plaza_empty(deque<Car> array[4]);
 
 const int INITIAL_QUEUE = 2;
@@ -44,22 +44,21 @@ int random_probability(){
     return random_prob;
 }
 
-// deque_print function outputs the contents of the deque
-void deque_print(deque<Car> toll_booth){
-    if (toll_booth.empty()){
-        cout << "Queue:" << endl;
-        cout << setw(4) << "" << "Empty" << endl;
-        return;
+// deque_print function outputs the contents of each deque in the plaza
+void deque_print(deque<Car> toll_array[4]){
+    int queue_iter = 0;
+    for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){
+        for (auto element : toll_array[lane_iter]){
+            if (toll_array[lane_iter].empty()){
+                cout << "empty" << endl;
+                break;
+            }
+            cout << setw(4) << "";
+            toll_array[lane_iter][queue_iter].print();
+            queue_iter++;
+        }
+        queue_iter = 0;
     }
-    int i = 0;
-    cout << "Queue:" << endl;
-    for (auto element : toll_booth){
-        Car temp_car = toll_booth[i];
-        cout << setw(4) << "";
-        toll_booth[i].print();
-        i++;
-    }
-    cout << endl;
 }
 
 /*  NOTE: - need to add an additional 3 lanes for cars to queue at
@@ -69,6 +68,7 @@ void deque_print(deque<Car> toll_booth){
             - 15% the car at the end of the queue will switch lanes
           - Use Array to hold the 4 toll booths: "deque<Car> toll_array[4]"
           - Run for 20 time periods
+          - CHANGING the "deque_print function" 
             */
 int main(){
     srand(time(0));
@@ -102,7 +102,6 @@ int main(){
     int plaza_lane_checker = 1;
     while (!plaza_lane_checker){
         
-
         plaza_lane_checker = plaza_empty(toll_array);
     } 
     
