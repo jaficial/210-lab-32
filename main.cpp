@@ -8,6 +8,7 @@
 
 using namespace std;
 void deque_print(deque<Car> array[4]);
+void switch_lanes(deque<Car> array[4]);
 int plaza_empty(deque<Car> array[4]);
 int probable_operation(int);
 
@@ -64,6 +65,9 @@ void deque_print(deque<Car> toll_array[4]){
     }
 }
 
+void switch_lanes(deque<Car> toll_array[4]){
+    toll_array[1].pop_back();
+}
 // probable_operation will return a number betwwen 1, 2, 3 based on the inputted number in the probability parameter
 int probable_operation(int probability){
     if (probability <= SWITCH_Q){
@@ -105,7 +109,9 @@ int main(){
     deque_print(toll_array);
     
     int plaza_lane_checker = plaza_empty(toll_array); // NOTE: if any of the lanes have a car in it, this will return 0
-    
+    switch_lanes(toll_array);
+    cout << "The car at the tail end of the 2nd lane should be popped. " << endl;
+    deque_print(toll_array);
     for (int time_iter = 0; time_iter < MAX_TIME_PERIOD; time_iter++){
 
     }
