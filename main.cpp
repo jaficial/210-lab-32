@@ -10,6 +10,7 @@ using namespace std;
 void deque_print(deque<Car> );
 
 const int INITIAL_QUEUE = 2;
+const int PLAZA_LANES = 4;
 const int MIN = 1;
 const int MAX = 100;
 const int SWITCH_Q = 15;
@@ -44,18 +45,24 @@ void deque_print(deque<Car> toll_booth){
           - 3 possible outcomes, different probabilities for each outcome
             - 46% the car at the head of the queue pays the toll and leaves
             - 39% the car joins the queue
-            - 15% the car at the end of the queue will switch lanes*/
+            - 15% the car at the end of the queue will switch lanes
+          - Use Array to hold the 4 toll booths: "deque<Car> toll_array[4]"
+          - Run for 20 time periods
+            */
 int main(){
     srand(time(0));
     deque<Car> toll_booth;
-    
+    deque<Car> toll_array[PLAZA_LANES];
     Car temp_car_obj;
     Car temp_car_paid;
 
-    // start off with 2 cars in line:
-    for (int i = 0; i < INITIAL_QUEUE; i++){
-        temp_car_obj = Car();
-        toll_booth.push_back(temp_car_obj);
+    // start off with 2 cars in line each line:
+    for (int i = 0; i < PLAZA_LANES; i++){
+        for (int j = 0; j < INITIAL_QUEUE; j++){
+            temp_car_obj = Car();
+            toll_array[i].push_back(temp_car_obj); // pushes a Car object into the toll lane for each lane
+            
+        }
     }
 
     // NOTE: When printing out deque: "toll_booth[i].print();" works
