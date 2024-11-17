@@ -116,21 +116,27 @@ int main(){
     cout << "Initial queue:" << endl;
     deque_print(toll_array);
     
+    // NOTE: For some reason, there is an issue happening to the toll_array within this nested loop, COME BACK HERE TOMORROW
     int plaza_lane_checker = plaza_empty(toll_array); // NOTE: if any of the lanes have a car in it, this will return 0
     for (int time_iter = 0; time_iter < MAX_TIME_PERIOD; time_iter++){
         for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){
             int probability = random_probability();
             int operation = probable_operation(probability);
 
-            if (operation == 1){ // Car is getting switched 
+            if (operation == 1){ // Car is getting switched to a new lane
                 switch_lanes(toll_array, lane_iter);
             }
 
             if (operation == 2){ // A new car is joining the queue
                 Car temp_car = Car();
+                toll_array[lane_iter].push_back(temp_car);
             }
+
+            if (operation == 3) // The car at the head pays the toll and is popped out of the queue
+                toll_array[lane_iter].pop_front();
         }
     }
+    deque_print(toll_array);
     return 0; 
   
 }
