@@ -9,6 +9,7 @@
 using namespace std;
 void deque_print(deque<Car> array[4]);
 int plaza_empty(deque<Car> array[4]);
+int probable_operation(int);
 
 const int INITIAL_QUEUE = 2;
 const int PLAZA_LANES = 4;
@@ -16,7 +17,7 @@ const int MIN = 1;
 const int MAX = 100;
 const int SWITCH_Q = 15;
 const int JOIN_Q = SWITCH_Q + 39;
-const int TIME_PERIOD = 25;
+const int MAX_TIME_PERIOD = 25;
 
 // plaza_empty returns 1 if any of the deques are not empty, else if all are empty, it returns 0
 int plaza_empty(deque<Car> toll_array[4]){
@@ -63,6 +64,18 @@ void deque_print(deque<Car> toll_array[4]){
     }
 }
 
+// probable_operation will return a number betwwen 1, 2, 3 based on the inputted number in the probability parameter
+int probable_operation(int probability){
+    if (probability <= SWITCH_Q){
+        return 1;
+    }
+
+    if ((SWITCH_Q < probability) && (probability <= JOIN_Q)){
+        return 2;
+    }
+    return 3;
+}
+
 /*  NOTE: - need to add an additional 3 lanes for cars to queue at
           - 3 possible outcomes, different probabilities for each outcome
             - 46% the car at the head of the queue pays the toll and leaves
@@ -93,7 +106,9 @@ int main(){
     
     int plaza_lane_checker = plaza_empty(toll_array); // NOTE: if any of the lanes have a car in it, this will return 0
     
-    
+    for (int time_iter = 0; time_iter < MAX_TIME_PERIOD; time_iter++){
+
+    }
     return 0; // breaking here to test out output
     // int time_op = 1;
     // // run simulation until all cars have left the toll booth 
