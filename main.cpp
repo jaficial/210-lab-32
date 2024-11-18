@@ -99,7 +99,8 @@ int main(){
     // NOTE: Parent for loop is ending too soon for some reason
     for (int time_iter = 0; time_iter < MAX_TIME_PERIOD; time_iter++){
         for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){
-
+            
+            // NOTE: probability and operation are both working as expected, some if statements are running multiple times though
             probability = random_probability();
             operation = probable_operation(probability);
             if (operation == 1){ // Car is getting switched to a new lane
@@ -116,13 +117,16 @@ int main(){
                 toll_array[lane_iter].push_back(temp_car_obj);
             }
 
-            else if (operation == 3) // The car at the head pays the toll and is popped out of the queue
+            else if (operation == 3){ // The car at the head pays the toll and is popped out of the queue
                 temp_car_obj = toll_array[lane_iter].front();
                 cout << "Lane: " << lane_iter + 1 << " Paid: ";
                 temp_car_obj.print();
                 toll_array[lane_iter].pop_front();
+            }
+            
         }
-        cout << "Amount of passed time periods: " << time_iter + 1 << endl;
+        deque_print(toll_array);
+        cout << "Amount of passed time periods: " << time_iter + 1 << endl << endl;
     }
     return 0; 
   
