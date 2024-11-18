@@ -27,12 +27,14 @@ int random_probability(){
 }
 
 // deque_print function outputs the contents of each deque in the plaza
+// NOTE: For some reason, "empty" isn't being outputted when a deque is empty
 void deque_print(deque<Car> toll_array[4]){
     int queue_iter = 0;
     for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){
         cout << "Lane " << lane_iter + 1 << " Queue:" << endl;
+        cout << "This should print 1 if Lane " << lane_iter + 1 << " is empty or 0 if not: " << toll_array[lane_iter].empty() << endl;
         for (auto element : toll_array[lane_iter]){
-            if (toll_array[lane_iter].empty()){
+            if (toll_array[lane_iter].empty() == 1){
                 cout << "empty" << endl;
                 continue;
             }
@@ -57,14 +59,14 @@ void switch_lanes(deque<Car> toll_array[4], int original_lane){
 
 // probable_operation will return a number betwwen 1, 2, 3 based on the inputted number in the probability parameter
 int probable_operation(int probability){
-    if (probability <= SWITCH_Q){
-        return 1;
+    if (probability <= SWITCH_Q){ 
+        return 1; // if returning 1, a car has switched lanes
     }
 
-    if ((SWITCH_Q < probability) && (probability <= JOIN_Q)){
-        return 2;
+    if ((SWITCH_Q < probability) && (probability <= JOIN_Q)){ 
+        return 2; // if returning 2, a car has joined the queue in a lane
     }
-    return 3;
+    return 3; // if returning 3, a car has paid the toll
 }
 
 /*  NOTE: - need to add an additional 3 lanes for cars to queue at
@@ -100,7 +102,7 @@ int main(){
     for (int time_iter = 0; time_iter < MAX_TIME_PERIOD; time_iter++){
         for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){
             
-            // NOTE: probability and operation are both working as expected, some if statements are running multiple times though
+            // NOTE: probability and operation are both working as expected
             probability = random_probability();
             operation = probable_operation(probability);
             if (operation == 1){ // Car is getting switched to a new lane
