@@ -88,7 +88,16 @@ int main(){
     
     int queue_iter = 0;
     cout << "Initial queue:" << endl;
-    deque_print(toll_array);
+    for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){
+        cout << "Lane: " << lane_iter + 1 << endl;
+        for (auto element : toll_array[lane_iter]){
+            cout << setw(4) << "";
+            toll_array[lane_iter][queue_iter].print();
+            queue_iter++;
+        }
+        queue_iter = 0;
+    }
+    
     int probability = 0;
     int operation = 0;
     // NOTE: Parent for loop is ending too soon for some reason. POSSIBLY FIXED DUE TO TESTING FOR EMPTY LANES
