@@ -17,7 +17,7 @@ const int MIN = 1;
 const int MAX = 100;
 const int SWITCH_Q = 15;
 const int JOIN_Q = SWITCH_Q + 39;
-const int MAX_TIME_PERIOD = 25;
+const int MAX_TIME_PERIOD = 20;
 
 // random_probability function returns a random probability between 1 and 100
 int random_probability(){
@@ -45,6 +45,7 @@ void deque_print(deque<Car> toll_array[4]){
         }
         queue_iter = 0;
     }
+    cout << endl;
 }
 
 // switch_lanes function will pop the Car object at the tail of the original lane, and push it to the back of a random new lane
@@ -70,15 +71,6 @@ int probable_operation(int probability){
     return 3; // if returning 3, a car has paid the toll
 }
 
-/*  NOTE: - need to add an additional 3 lanes for cars to queue at
-          - 3 possible outcomes, different probabilities for each outcome
-            - 46% the car at the head of the queue pays the toll and leaves
-            - 39% the car joins the queue
-            - 15% the car at the end of the queue will switch lanes
-          - Use Array to hold the 4 toll booths: "deque<Car> toll_array[4]"
-          - Run for 20 time periods
-          - CHANGING the "deque_print function" 
-            */
 int main(){
     srand(time(0));
     // deque<Car> toll_booth;
@@ -101,6 +93,7 @@ int main(){
     int operation = 0;
     // NOTE: Parent for loop is ending too soon for some reason. POSSIBLY FIXED DUE TO TESTING FOR EMPTY LANES
     for (int time_iter = 0; time_iter < MAX_TIME_PERIOD; time_iter++){
+        cout << "Time: " << time_iter + 1 << endl;
         for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){
             
             // NOTE: probability and operation are both working as expected
@@ -129,7 +122,6 @@ int main(){
             
         }
         deque_print(toll_array);
-        cout << "Amount of passed time periods: " << time_iter + 1 << endl << endl;
     }
     return 0; 
   
