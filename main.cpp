@@ -68,6 +68,7 @@ int operation(int probability){
     if ((SWITCH_Q < probability) && (probability <= JOIN_Q)){ // 15 < probability <= 54 (39% probability) 
         return 2; // if returning 2, a car has joined the queue in a lane
     }
+    
     // probability > 54 (46% probability)
     return 3; // if returning 3, a car has paid the toll 
 }
@@ -128,10 +129,8 @@ int main(){
                 temp_car_obj.print();
                 toll_array[lane_iter].pop_front();
             }
-            
         }
         deque_print(toll_array);
     }
     return 0; 
-  
 }
