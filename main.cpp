@@ -31,16 +31,17 @@ int random_probability(){
 void deque_print(deque<Car> toll_array[4]){
     int queue_iter = 0;
     for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){
-        cout << "Lane " << lane_iter + 1 << " Queue:" << endl;
-        cout << "This should print 1 if Lane " << lane_iter + 1 << " is empty or 0 if not: " << toll_array[lane_iter].empty() << endl;
-        for (auto element : toll_array[lane_iter]){
-            if (toll_array[lane_iter].empty() == 1){
-                cout << "empty" << endl;
-                continue;
+        if (toll_array[lane_iter].empty() == 1){
+            cout << "Lane " << lane_iter + 1 << " Queue: empty" << endl;
+        }
+
+        else{
+            cout << "Lane " << lane_iter + 1 << " Queue:" << endl;
+            for (auto element : toll_array[lane_iter]){
+                cout << setw(4) << "";
+                toll_array[lane_iter][queue_iter].print();
+                queue_iter++;
             }
-            cout << setw(4) << "";
-            toll_array[lane_iter][queue_iter].print();
-            queue_iter++;
         }
         queue_iter = 0;
     }
@@ -98,14 +99,14 @@ int main(){
     deque_print(toll_array);
     int probability = 0;
     int operation = 0;
-    // NOTE: Parent for loop is ending too soon for some reason
+    // NOTE: Parent for loop is ending too soon for some reason. POSSIBLY FIXED DUE TO TESTING FOR EMPTY LANES
     for (int time_iter = 0; time_iter < MAX_TIME_PERIOD; time_iter++){
         for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){
             
             // NOTE: probability and operation are both working as expected
             probability = random_probability();
             operation = probable_operation(probability);
-            if (operation == 1){ // Car is getting switched to a new lane
+            if ((operation == 1) && (!toll_array[lane_iter].empty())){ // Car is getting switched to a new lane
                 temp_car_obj = toll_array[lane_iter].back();
                 cout << "Lane: " << lane_iter + 1 << " Switched: ";
                 temp_car_obj.print(); 
@@ -119,7 +120,7 @@ int main(){
                 toll_array[lane_iter].push_back(temp_car_obj);
             }
 
-            else if (operation == 3){ // The car at the head pays the toll and is popped out of the queue
+            else if ((operation == 3) && (!toll_array[lane_iter].empty())){ // The car at the head pays the toll and is popped out of the queue
                 temp_car_obj = toll_array[lane_iter].front();
                 cout << "Lane: " << lane_iter + 1 << " Paid: ";
                 temp_car_obj.print();
