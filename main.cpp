@@ -9,8 +9,8 @@
 using namespace std;
 void deque_print(deque<Car> array[4]);
 void switch_lanes(deque<Car> array[4], int);
-int plaza_empty(deque<Car> array[4]);
 int probable_operation(int);
+string operations_output(deque<Car> , int);
 
 const int INITIAL_QUEUE = 2;
 const int PLAZA_LANES = 4;
@@ -20,24 +20,12 @@ const int SWITCH_Q = 15;
 const int JOIN_Q = SWITCH_Q + 39;
 const int MAX_TIME_PERIOD = 25;
 
-// plaza_empty returns 1 if any of the deques are not empty, else if all are empty, it returns 0
-int plaza_empty(deque<Car> toll_array[4]){
-    if (!toll_array[0].empty()){
-        return 0;
+string operations_output(deque<Car> toll_lane, int operation_number){
+    Car temp_car;
+    if (operation_number == 1){
+        temp_car = toll_lane.back();
+        return "Lane: "
     }
-    
-    if (!toll_array[1].empty()){
-        return 0;
-    }
-
-    if (!toll_array[2].empty()){
-        return 0;
-    }
-
-    if (!toll_array[3].empty()){
-        return 0;
-    }
-    return 1;
 }
 
 // random_probability function returns a random probability between 1 and 100
@@ -117,10 +105,10 @@ int main(){
     deque_print(toll_array);
     int probability = 0;
     int operation = 0;
-    // NOTE: For some reason, there is an issue happening to the toll_array within this nested loop, COME BACK HERE TOMORROW
-    int plaza_lane_checker = plaza_empty(toll_array); // NOTE: if any of the lanes have a car in it, this will return 0
+    // NOTE: Parent for loop is ending too soon for some reason
     for (int time_iter = 0; time_iter < MAX_TIME_PERIOD; time_iter++){
         for (int lane_iter = 0; lane_iter < PLAZA_LANES; lane_iter++){
+
             probability = random_probability();
             operation = probable_operation(probability);
             cout << "The operation number is: " << operation << endl << endl;
@@ -128,18 +116,17 @@ int main(){
                 switch_lanes(toll_array, lane_iter);
             }
 
-            if (operation == 2){ // A new car is joining the queue
+            else if (operation == 2){ // A new car is joining the queue
                 temp_car_obj = Car();
                 toll_array[lane_iter].push_back(temp_car_obj);
             }
 
-            if (operation == 3) // The car at the head pays the toll and is popped out of the queue
+            else if (operation == 3) // The car at the head pays the toll and is popped out of the queue
                 toll_array[lane_iter].pop_front();
         }
         cout << "This is after " << time_iter << " periods" << endl;
         deque_print(toll_array);
     }
-    deque_print(toll_array);
     return 0; 
   
 }
