@@ -10,7 +10,6 @@ using namespace std;
 void deque_print(deque<Car> array[4]);
 void switch_lanes(deque<Car> array[4], int);
 int probable_operation(int);
-string operations_output(deque<Car> , int);
 
 const int INITIAL_QUEUE = 2;
 const int PLAZA_LANES = 4;
@@ -19,14 +18,6 @@ const int MAX = 100;
 const int SWITCH_Q = 15;
 const int JOIN_Q = SWITCH_Q + 39;
 const int MAX_TIME_PERIOD = 25;
-
-string operations_output(deque<Car> toll_lane, int operation_number){
-    Car temp_car;
-    if (operation_number == 1){
-        temp_car = toll_lane.back();
-        return "Lane: "
-    }
-}
 
 // random_probability function returns a random probability between 1 and 100
 int random_probability(){
@@ -111,21 +102,27 @@ int main(){
 
             probability = random_probability();
             operation = probable_operation(probability);
-            cout << "The operation number is: " << operation << endl << endl;
             if (operation == 1){ // Car is getting switched to a new lane
+                temp_car_obj = toll_array[lane_iter].back();
+                cout << "Lane: " << lane_iter + 1 << " Switched: ";
+                temp_car_obj.print(); 
                 switch_lanes(toll_array, lane_iter);
             }
 
             else if (operation == 2){ // A new car is joining the queue
                 temp_car_obj = Car();
+                cout << "Lane: " << lane_iter + 1 << " Joined: ";
+                temp_car_obj.print();
                 toll_array[lane_iter].push_back(temp_car_obj);
             }
 
             else if (operation == 3) // The car at the head pays the toll and is popped out of the queue
+                temp_car_obj = toll_array[lane_iter].front();
+                cout << "Lane: " << lane_iter + 1 << " Paid: ";
+                temp_car_obj.print();
                 toll_array[lane_iter].pop_front();
         }
-        cout << "This is after " << time_iter << " periods" << endl;
-        deque_print(toll_array);
+        cout << "Amount of passed time periods: " << time_iter + 1 << endl;
     }
     return 0; 
   
